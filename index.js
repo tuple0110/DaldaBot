@@ -187,6 +187,11 @@ ${userData.skin.avatar}
                 }
                 break;
         }
+    } else if (message2.channel.id == "810173363485933568") {
+        message2.channel.send("**매수**");
+        message2.channel.send("**매도**");
+        message2.channel.send("**그래프**");
+        message2.channel.send("**주식 정보**");
     }
 });
 
