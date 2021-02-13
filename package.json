@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "jsonbin-io-api": "^1.0.2",
+    "mcdata": "^1.0.9",
+    "string-similarity": "^4.0.4"
+  },
+  "name": "devtutech",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
