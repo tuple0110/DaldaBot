@@ -230,6 +230,8 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 async function dom(chart) {
     var canvasRenderService = new ChartJSNodeCanvas({width: 113, height: 200});
     var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
+    var sell = prices.map((a) => -data.stock.kokocity.deal[a].sellTotal);
+    var buy = prices.map((a) => data.stock.kokocity.deal[a].buyTotal);
     var image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
         data: {
@@ -238,12 +240,12 @@ async function dom(chart) {
                 {
                     label: "SELL",
                     backgroundColor: "#0000FF",
-                    data: prices.map((a) => -data.stock.kokocity.deal[a].sellTotal)
+                    data: sell
                 },
                 {
                     label: "BUY",
                     backgroundColor: "#FF0000",
-                    data: prices.map((a) => data.stock.kokocity.deal[a].buyTotal)
+                    data: buy
                 }
             ]
         },
@@ -254,14 +256,24 @@ async function dom(chart) {
                         ticks: {
                             beginAtZero: true
                         }
+                    },
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }
                 ],
                 yAxes: [
                     {
                         stacked: true,
-                        min: Math.min.apply(this, data_array) - 1,
-                        max: Math.max.apply(this, data_array) + 1
-                    }
+                        min: Math.min.apply(this, sell) - 1,
+                        max: Math.max.apply(this, sell) + 1
+                    },
+                    {
+                        stacked: true,
+                        min: Math.min.apply(this, buy) - 1,
+                        max: Math.max.apply(this, buy) + 1
+                    },
                 ]
             }
         },
