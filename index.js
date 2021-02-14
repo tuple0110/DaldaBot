@@ -250,14 +250,11 @@ async function dom(chart) {
             ]
         },
         options: {
-            scales: {
-                yAxes: [
-                    {
-                        stacked: true
-                    }
-                ]
+            title: {
+                display: true,
+                text: "PRICE"
             }
-        },
+        }
     });
     var attachment = new Discord.MessageAttachment(image, "image.png");
     chart.send(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
