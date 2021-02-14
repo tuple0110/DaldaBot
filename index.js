@@ -253,9 +253,7 @@ async function dom(chart) {
             scales: {
                 yAxes: [
                     {
-                        stacked: true,
-                        min: Math.min.apply(this, sell) - 1,
-                        max: Math.max.apply(this, sell) + 1
+                        stacked: true
                     }
                 ]
             }
