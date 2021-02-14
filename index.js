@@ -234,12 +234,12 @@ async function dom(chart) {
             datasets: [
                 {
                     label: "SELL",
-                    backgroundColor: new Array(prices.length).fill("blue"),
+                    backgroundColor: "#0000FF",
                     data: prices.map((a) => data.stock.kokocity.deal[a].sellTotal)
                 },
                 {
                     label: "BUY",
-                    backgroundColor: new Array(prices.length).fill("red"),
+                    backgroundColor: "#FF0000",
                     data: prices.map((a) => data.stock.kokocity.deal[a].buyTotal)
                 }
             ]
