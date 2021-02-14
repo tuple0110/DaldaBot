@@ -219,6 +219,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 });
 
 async function dom() {
+    let embed = new Discord.MessageEmbed();
     const canvas = Canvas.createCanvas(900, 1600);
     const ctx = canvas.getContext("2d");
     const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => { });
@@ -258,7 +259,9 @@ async function dom() {
         }
     });
     const attachment = new Discord.MessageAttachment(image, "image.png");
-    message2.channel.fetchMessage("810396566560964608").edit("**호가창**", attachment);
+    embed.attachFiles(attachment);
+    embed.setImage("attachment://image.png");
+    message2.channel.fetchMessage("810396566560964608").edit(embed);
 }
 
 client.login(process.env.BOT_TOKEN);
