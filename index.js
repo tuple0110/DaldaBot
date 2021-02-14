@@ -251,13 +251,6 @@ async function dom(chart) {
         },
         options: {
             scales: {
-                xAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }
-                ],
                 yAxes: [
                     {
                         stacked: true,
