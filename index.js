@@ -192,10 +192,6 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     break;
             }
         } else if (message2.channel.id == "810173363485933568") {
-            message2.channel.send("**호가창**");
-            message2.channel.send("**일봉 차트**");
-            message2.channel.send("**거래량 차트**");
-            message2.channel.send("**기타 정보**");
             switch (true) {
 
             }
