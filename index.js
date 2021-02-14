@@ -261,7 +261,7 @@ async function dom(chart) {
         }
     });
     const attachment = new Discord.MessageAttachment(image, "image.png");
-    chart.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
+    chart.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles(attachment).setImage("attachment://image.png"));
 }
 
 client.login(process.env.BOT_TOKEN);
