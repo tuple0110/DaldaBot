@@ -226,9 +226,9 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 });
 
 async function dom(chart) {
-    const canvasRenderService = new ChartJSNodeCanvas({width: 113, height: 200});
-    const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
-    const image = await canvasRenderService.renderToBuffer({
+    var canvasRenderService = new ChartJSNodeCanvas({width: 113, height: 200});
+    var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
+    var image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
         data: {
             labels: prices,
@@ -263,7 +263,7 @@ async function dom(chart) {
             }
         },
     });
-    const attachment = new Discord.MessageAttachment(image, "image.png");
+    var attachment = new Discord.MessageAttachment(image, "image.png");
     chart.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
 }
 
