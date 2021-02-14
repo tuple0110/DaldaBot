@@ -16,6 +16,8 @@ const stringSimilarity = require("string-similarity");
 
 const mcdata = require("mcdata");
 
+const { CanvasRenderService } = require("chartjs-node-canvas");
+
 function saveData() {
     api.updateBin({
         id: "602520643b303d3d964f1ffd",
@@ -193,10 +195,70 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
             }
         } else if (message2.channel.id == "810173363485933568") {
             switch (true) {
-
+                case /^매도 [1-9][0-9]* [1-9][0-9]*$/:
+                    if (data.stock.kokocity.deal[msg[1]]) {
+                        data.stock.kokocity.deal[msg[1]].sell.push([message2.author.id, Number(msg[2])]);
+                        data.stock.kokocity.deal[msg[1]].sellTotal += Number(msg[2]);
+                    } else {
+                        data.stock.kokocity.deal[msg[1]] = {sell: [[message2.author.id, Number(msg[2])]], buy: [], sellTotal: Number(msg[2]), buyTotal: 0};
+                    }
+                    dom();
+                    break;
+                case /^매수 [1-9][0-9]* [1-9][0-9]*$/:
+                    if (data.stock.kokocity.deal[msg[1]]) {
+                        data.stock.kokocity.deal[msg[1]].buy.push([message2.author.id, Number(msg[2])]);
+                        data.stock.kokocity.deal[msg[1]].buyTotal += Number(msg[2]);
+                    } else {
+                        data.stock.kokocity.deal[msg[1]] = {sell: [], buy: [[message2.author.id, Number(msg[2])]], sellTotal: 0, buyTotal: Number(msg[2])};
+                    }
+                    dom();
+                    break;
             }
         }
     }
 });
+
+async function dom() {
+    const canvas = Canvas.createCanvas(900, 1600);
+    const ctx = canvas.getContext("2d");
+    const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => { });
+    const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
+    const image = await canvasRenderService.renderToBuffer({
+        type: 'horizontalBar',
+        data: {
+            labels: prices,
+            datasets: [
+                {
+                    label: "매도",
+                    fillColor: "blue",
+                    data: prices.map((a) => data.stock.kokocity.deal[a].sellTotal)
+                },
+                {
+                    label: "매수",
+                    fillColor: "red",
+                    data: prices.map((a) => data.stock.kokocity.deal[a].buyTotal)
+                }
+            ]
+        },
+        options: {
+            scales: {
+                xAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }
+                ],
+                yAxes: [
+                    {
+                        stacked: true
+                    }
+                ]
+            }
+        }
+    });
+    const attachment = new Discord.MessageAttachment(image, "image.png");
+    message2.channel.fetchMessage("810396566560964608").edit("**호가창**", attachment);
+}
 
 client.login(process.env.BOT_TOKEN);
