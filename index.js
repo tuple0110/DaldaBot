@@ -233,7 +233,7 @@ async function dom(chart) {
     var sell = prices.map((a) => -data.stock.kokocity.deal[a].sellTotal);
     var buy = prices.map((a) => data.stock.kokocity.deal[a].buyTotal);
     var image = await canvasRenderService.renderToBuffer({
-        type: 'bar',
+        type: 'horizontalBar',
         data: {
             labels: prices,
             datasets: [
@@ -256,15 +256,15 @@ async function dom(chart) {
             },
             scales: {
                 xAxes: [{
-                    stacked: true
-                }],
-                yAxes: [{
                     stacked: true,
                     ticks: {
                         callback: function (value, index, values) {
                             return value < 0 ? -value : value
                         }
                     }
+                }],
+                yAxes: [{
+                    stacked: true,
                 }]
             }
         }
