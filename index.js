@@ -221,7 +221,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 
 async function dom() {
     let embed = new Discord.MessageEmbed();
-    const canvasRenderService = new ChartJSNodeCanvas({900, 1600});
+    const canvasRenderService = new ChartJSNodeCanvas({width: 900, height: 1600});
     const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     const image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
