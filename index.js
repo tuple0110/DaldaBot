@@ -196,7 +196,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
         } else if (message2.channel.id == "810173363485933568") {
             message2.channel.send("**호가창**");
             switch (true) {
-                case /^매도 [1-9][0-9]* [1-9][0-9]*$/:
+                case /^매도 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     console.log("매도");
                     if (data.stock.kokocity.deal[msg[1]]) {
                         data.stock.kokocity.deal[msg[1]].sell.push([message2.author.id, Number(msg[2])]);
@@ -206,7 +206,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     }
                     dom();
                     break;
-                case /^매수 [1-9][0-9]* [1-9][0-9]*$/:
+                case /^매수 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     if (data.stock.kokocity.deal[msg[1]]) {
                         data.stock.kokocity.deal[msg[1]].buy.push([message2.author.id, Number(msg[2])]);
                         data.stock.kokocity.deal[msg[1]].buyTotal += Number(msg[2]);
