@@ -16,7 +16,7 @@ const stringSimilarity = require("string-similarity");
 
 const mcdata = require("mcdata");
 
-const { CanvasRenderService } = require("chartjs-node-canvas");
+const { ChartJSNodeCanvas } = require("chartjs-node-canvas");
 
 function saveData() {
     api.updateBin({
@@ -221,7 +221,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 
 async function dom() {
     let embed = new Discord.MessageEmbed();
-    const canvasRenderService = new CanvasRenderService(900, 1600, (ChartJS) => { });
+    const canvasRenderService = new ChartJSNodeCanvas(900, 1600, (ChartJS) => { });
     const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     const image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
