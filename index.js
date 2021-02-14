@@ -260,8 +260,8 @@ async function dom(chart) {
             }
         }
     });
-    const attachment = new Discord.MessageAttachment(image, "image.png");
-    chart.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles(attachment).setImage("attachment://image.png"));
+    const attachment = new Discord.MessageAttachment(image);
+    chart.edit(attachment);
 }
 
 client.login(process.env.BOT_TOKEN);
