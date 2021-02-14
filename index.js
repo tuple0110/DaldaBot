@@ -225,7 +225,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 });
 
 async function dom(chart) {
-    const canvasRenderService = new ChartJSNodeCanvas({width: 900, height: 1600});
+    const canvasRenderService = new ChartJSNodeCanvas({width: 2000, height: 2000});
     const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     const image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
@@ -233,13 +233,13 @@ async function dom(chart) {
             labels: prices,
             datasets: [
                 {
-                    label: "매도",
-                    fillColor: "blue",
+                    label: "SELL",
+                    backgroundColor: new Array(prices.length).fill("blue"),
                     data: prices.map((a) => data.stock.kokocity.deal[a].sellTotal)
                 },
                 {
-                    label: "매수",
-                    fillColor: "red",
+                    label: "BUY",
+                    backgroundColor: new Array(prices.length).fill("red"),
                     data: prices.map((a) => data.stock.kokocity.deal[a].buyTotal)
                 }
             ]
