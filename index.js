@@ -194,7 +194,6 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     break;
             }
         } else if (message2.channel.id == "810173363485933568") {
-            message2.channel.send("**호가창**");
             switch (true) {
                 case /^매도 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     console.log("매도");
@@ -222,9 +221,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 
 async function dom() {
     let embed = new Discord.MessageEmbed();
-    const canvas = Canvas.createCanvas(900, 1600);
-    const ctx = canvas.getContext("2d");
-    const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => { });
+    const canvasRenderService = new CanvasRenderService(900, 1600, (ChartJS) => { });
     const prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     const image = await canvasRenderService.renderToBuffer({
         type: 'horizontalBar',
@@ -263,7 +260,7 @@ async function dom() {
     const attachment = new Discord.MessageAttachment(image, "image.png");
     embed.attachFiles(attachment);
     embed.setImage("attachment://image.png");
-    message2.channel.fetchMessage("810396566560964608").edit(embed);
+    message2.channel.fetchMessage("810455045987500093").edit(embed);
 }
 
 client.login(process.env.BOT_TOKEN);
