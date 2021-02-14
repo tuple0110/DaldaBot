@@ -261,7 +261,8 @@ async function dom(chart) {
         }
     });
     const attachment = new Discord.MessageAttachment(image);
-    chart.edit(attachment);
+    //chart.edit(attachment);
+    chart.channel.send(attachment);
 }
 
 client.login(process.env.BOT_TOKEN);
