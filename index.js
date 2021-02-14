@@ -256,11 +256,6 @@ async function dom(chart) {
                         ticks: {
                             beginAtZero: true
                         }
-                    },
-                    {
-                        ticks: {
-                            beginAtZero: true
-                        }
                     }
                 ],
                 yAxes: [
@@ -268,12 +263,7 @@ async function dom(chart) {
                         stacked: true,
                         min: Math.min.apply(this, sell) - 1,
                         max: Math.max.apply(this, sell) + 1
-                    },
-                    {
-                        stacked: true,
-                        min: Math.min.apply(this, buy) - 1,
-                        max: Math.max.apply(this, buy) + 1
-                    },
+                    }
                 ]
             }
         },
