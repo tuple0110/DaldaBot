@@ -203,9 +203,10 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [[message2.author.id, Number(msg[2])]], buy: [], sellTotal: Number(msg[2]), buyTotal: 0};
                     }
-                    message2.channel.messages.fetch("810455045987500093").then((chartMessage) => {
-                        dom(chartMessage);
-                    });
+                    //message2.channel.messages.fetch("810455045987500093").then((chartMessage) => {
+                    //    dom(chartMessage);
+                    //});
+                    dom(message2.channel)
                     break;
                 case /^매수 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     if (data.stock.kokocity.deal[msg[1]]) {
@@ -262,7 +263,7 @@ async function dom(chart) {
     });
     const attachment = new Discord.MessageAttachment(image);
     //chart.edit(attachment);
-    chart.channel.send(attachment);
+    chart.send(attachment);
 }
 
 client.login(process.env.BOT_TOKEN);
