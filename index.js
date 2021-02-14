@@ -262,8 +262,9 @@ async function dom(chart) {
             }
         }
     });
-    const attachment = new Discord.MessageAttachment(image);
-    chart.edit(attachment);
+    const attachment = new Discord.MessageAttachment(image, "image.png");
+    //chart.edit(attachment);
+    chart.channel.send(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
 }
 
 client.login(process.env.BOT_TOKEN);
