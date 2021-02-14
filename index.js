@@ -203,7 +203,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [[message2.author.id, Number(msg[2])]], buy: [], sellTotal: Number(msg[2]), buyTotal: 0};
                     }
-                    message2.channel.messages.fetch("810481714928287814").then((chartMessage) => {
+                    message2.channel.messages.fetch("810486561010614323").then((chartMessage) => {
                         dom(chartMessage);
                     });
                     message2.delete();
@@ -215,7 +215,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [], buy: [[message2.author.id, Number(msg[2])]], sellTotal: 0, buyTotal: Number(msg[2])};
                     }
-                    message2.channel.messages.fetch("810481714928287814").then((chartMessage) => {
+                    message2.channel.messages.fetch("810486561010614323").then((chartMessage) => {
                         dom(chartMessage);
                     });
                     message2.delete();
@@ -260,11 +260,11 @@ async function dom(chart) {
                     }
                 ]
             }
-        }
+        },
+        barValueSpacing: 20,
     });
     const attachment = new Discord.MessageAttachment(image, "image.png");
-    //chart.edit(attachment);
-    chart.channel.send(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
+    chart.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
 }
 
 client.login(process.env.BOT_TOKEN);
