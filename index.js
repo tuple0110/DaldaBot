@@ -259,8 +259,8 @@ async function dom(chart) {
                 yAxes: [
                     {
                         stacked: true,
-                        suggestedMax : 2500,
-                        suggestedMin : -2500
+                        min: Math.min.apply(this, data_array) - 1,
+                        max: Math.max.apply(this, data_array) + 1
                     }
                 ]
             }
