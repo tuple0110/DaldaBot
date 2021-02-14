@@ -238,7 +238,7 @@ async function dom(chart) {
                 {
                     label: "SELL",
                     backgroundColor: "#0000FF",
-                    data: prices.map((a) => data.stock.kokocity.deal[a].sellTotal)
+                    data: prices.map((a) => -data.stock.kokocity.deal[a].sellTotal)
                 },
                 {
                     label: "BUY",
@@ -260,8 +260,7 @@ async function dom(chart) {
                     {
                         stacked: true
                     }
-                ],
-                barValueSpacing: 20
+                ]
             }
         },
     });
