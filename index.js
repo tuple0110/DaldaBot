@@ -258,10 +258,10 @@ async function dom(chart) {
                     {
                         stacked: true
                     }
-                ]
+                ],
+                barValueSpacing: 20
             }
         },
-        barValueSpacing: 20,
     });
     const attachment = new Discord.MessageAttachment(image, "image.png");
     chart.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
