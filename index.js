@@ -25,6 +25,14 @@ function saveData() {
         versioning: true
     });
 }
+let domMessage;
+client.once("ready", () => {
+    var kokocityChannel = bot.channels.get("810173363485933568");
+    kokocityChannel.messages.fetch("810844159203999744").then((message) => {
+        domMessage = message;
+    });
+
+});
 
 client.on("message", (message2) => {
     msg = message2.content.split(" ");
@@ -196,18 +204,12 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
         } else if (message2.channel.id == "810173363485933568") {
             switch (true) {
                 case /^매도 [1-9][0-9]* [1-9][0-9]*$/.test(message):
-                    console.log("매도");
                     if (data.stock.kokocity.deal[msg[1]]) {
                         data.stock.kokocity.deal[msg[1]].sell.push([message2.author.id, Number(msg[2])]);
                         data.stock.kokocity.deal[msg[1]].sellTotal += Number(msg[2]);
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [[message2.author.id, Number(msg[2])]], buy: [], sellTotal: Number(msg[2]), buyTotal: 0};
                     }
-                    //message2.channel.messages.fetch("810486561010614323").then((chartMessage) => {
-                    //    dom(chartMessage);
-                    //});
-                    dom(message2.channel);
-                    message2.delete();
                     break;
                 case /^매수 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     if (data.stock.kokocity.deal[msg[1]]) {
@@ -216,18 +218,14 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [], buy: [[message2.author.id, Number(msg[2])]], sellTotal: 0, buyTotal: Number(msg[2])};
                     }
-                    //message2.channel.messages.fetch("810486561010614323").then((chartMessage) => {
-                    //    dom(chartMessage);
-                    //});
-                    dom(message2.channel);
-                    message2.delete();
                     break;
             }
+            message2.delete();
         }
     }
 });
 
-async function dom(chart) {
+async function dom() {
     var canvasRenderService = new ChartJSNodeCanvas({width: 113, height: 200});
     var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     var sell = prices.map((a) => -data.stock.kokocity.deal[a].sellTotal);
@@ -270,7 +268,7 @@ async function dom(chart) {
         }
     });
     var attachment = new Discord.MessageAttachment(image, "image.png");
-    chart.send(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
+    domMessage.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
 }
 
 client.login(process.env.BOT_TOKEN);
