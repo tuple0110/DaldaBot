@@ -269,8 +269,10 @@ async function dom() {
             }
         }
     });
-    var attachment = new Discord.MessageAttachment(image, "image.png");
-    domMessage.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles(attachment).setImage("attachment://image.png"));
+    var date = new Date();
+    var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+    var attachment = new Discord.MessageAttachment(image, `dom-${id}.png`);
+    domMessage.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles(attachment).setImage(`attachment://dom-${id}.png`));
 }
 
 client.login(process.env.BOT_TOKEN);
