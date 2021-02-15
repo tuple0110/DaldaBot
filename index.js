@@ -268,7 +268,7 @@ async function dom() {
         }
     });
     var attachment = new Discord.MessageAttachment(image, "image.png");
-    domMessage.edit(new Discord.MessageEmbed().attachFiles(attachment).setImage("attachment://image.png"));
+    domMessage.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles(attachment).setImage("attachment://image.png"));
 }
 
 client.login(process.env.BOT_TOKEN);
