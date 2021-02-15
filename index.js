@@ -210,6 +210,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [[message2.author.id, Number(msg[2])]], buy: [], sellTotal: Number(msg[2]), buyTotal: 0};
                     }
+                    dom();
                     break;
                 case /^매수 [1-9][0-9]* [1-9][0-9]*$/.test(message):
                     if (data.stock.kokocity.deal[msg[1]]) {
@@ -218,6 +219,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     } else {
                         data.stock.kokocity.deal[msg[1]] = {sell: [], buy: [[message2.author.id, Number(msg[2])]], sellTotal: 0, buyTotal: Number(msg[2])};
                     }
+                    dom();
                     break;
             }
             message2.delete();
