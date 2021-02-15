@@ -27,7 +27,7 @@ function saveData() {
 }
 let domMessage;
 client.once("ready", () => {
-    var kokocityChannel = client.channels.get("810173363485933568");
+    var kokocityChannel = client.channels.cache.get("810173363485933568");
     kokocityChannel.messages.fetch("810844159203999744").then((message) => {
         domMessage = message;
     });
