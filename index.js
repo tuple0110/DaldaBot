@@ -25,14 +25,9 @@ function saveData() {
         versioning: true
     });
 }
-let domMessage;
 let kokocityChannel;
 client.once("ready", () => {
     kokocityChannel = client.channels.cache.get("810173363485933568");
-    kokocityChannel.messages.fetch("811082996153057280").then((message) => {
-        domMessage = message;
-    });
-
 });
 
 client.on("message", (message2) => {
@@ -223,7 +218,6 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     dom();
                     break;
             }
-            message2.delete();
         }
     }
 });
@@ -274,7 +268,10 @@ async function dom() {
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
     var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
     var embed = new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`);
-    domMessage.edit({embed});
+    kokocityChannel.messages.fetch({limit: 2}).then((message) => {
+        message.delete();
+        kokocityChannel.send({embed});
+    });
 }
 
 client.login(process.env.BOT_TOKEN);
