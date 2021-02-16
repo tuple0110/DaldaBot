@@ -272,8 +272,8 @@ async function dom() {
     });
     var date = new Date();
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
-    var attachment = new Discord.MessageAttachment(image, `dom-${id}.png`);
-    domMessage.edit({files: [attachment], embed: {
+    //var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
+    kokocityChannel.send({files: [{name: `dom-${id}.png`, attachment: imgBuf}], embed: {
         title: "호가창",
         image: {
             url: `attachment://dom-${id}.png`
