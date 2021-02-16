@@ -29,7 +29,7 @@ let domMessage;
 let kokocityChannel;
 client.once("ready", () => {
     kokocityChannel = client.channels.cache.get("810173363485933568");
-    kokocityChannel.messages.fetch("810884240102391818").then((message) => {
+    kokocityChannel.messages.fetch("811061589623963708").then((message) => {
         domMessage = message;
     });
 
@@ -229,7 +229,7 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
 });
 
 async function dom() {
-    var canvasRenderService = new ChartJSNodeCanvas({width: 113, height: 200});
+    var canvasRenderService = new ChartJSNodeCanvas({width: 200, height: 450});
     var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     var sell = prices.map((a) => -data.stock.kokocity.deal[a].sellTotal);
     var buy = prices.map((a) => data.stock.kokocity.deal[a].buyTotal);
@@ -273,7 +273,7 @@ async function dom() {
     var date = new Date();
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
     //var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
-    kokocityChannel.send({files: [{name: `dom-${id}.png`, attachment: image}], embed: {
+    domMessage.edit({files: [{name: `dom-${id}.png`, attachment: image}], embed: {
         title: "호가창",
         image: {
             url: `attachment://dom-${id}.png`
