@@ -272,13 +272,8 @@ async function dom() {
     });
     var date = new Date();
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
-    //var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
-    domMessage.edit({files: [{name: `dom-${id}.png`, attachment: image}], embed: {
-        title: "호가창",
-        image: {
-            url: `attachment://dom-${id}.png`
-        }
-    }});
+    var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
+    domMessage.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`));
 }
 
 client.login(process.env.BOT_TOKEN);
