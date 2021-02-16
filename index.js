@@ -29,7 +29,7 @@ let domMessage;
 let kokocityChannel;
 client.once("ready", () => {
     kokocityChannel = client.channels.cache.get("810173363485933568");
-    kokocityChannel.messages.fetch("811061589623963708").then((message) => {
+    kokocityChannel.messages.fetch("811079173081661521").then((message) => {
         domMessage = message;
     });
 
@@ -273,7 +273,7 @@ async function dom() {
     var date = new Date();
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
     var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
-    kokocityChannel.send(new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`));
+    domMessage.edit(new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`));
 }
 
 client.login(process.env.BOT_TOKEN);
