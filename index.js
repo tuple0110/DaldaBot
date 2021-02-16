@@ -274,7 +274,7 @@ async function dom() {
     var id = `${date.getFullYear()}${date.getMonth()}${date.getDay()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
     var file = new Discord.MessageAttachment(image, `dom-${id}.png`);
     var embed = new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`);
-    domMessage.edit({embed});
+    kokocityChannel.send({embed});
 }
 
 client.login(process.env.BOT_TOKEN);
