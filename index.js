@@ -325,8 +325,10 @@ cron.schedule("35 23 * * *", () => {
     var sellOffers = [];
     var buyOffers = [];
     prices.map((price) => {
-        sellOffers += data.stock.kokocity.deal[price.toString()].sell.map((offer) => offer + [Number(price)]);
-        buyOffers = data.stock.kokocity.deal[price.toString()].buy.map((offer) => offer + [Number(price)]) + buyOffers;
+        if (price != "a") {
+            sellOffers += data.stock.kokocity.deal[price].sell.map((offer) => offer + [Number(price)]);
+            buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer + [Number(price)]) + buyOffers;
+        }
     });
     var notice = "";
     var volume = 0;
