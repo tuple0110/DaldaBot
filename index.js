@@ -313,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("45 23 * * *", () => {
+cron.schedule("50 23 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -448,7 +448,7 @@ cron.schedule("45 23 * * *", () => {
             var id = `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
             var file = new Discord.MessageAttachment(image, `daily-${id}.png`);
             var embed = new Discord.MessageEmbed().setTitle("일봉 차트").attachFiles([file]).setImage(`attachment://daily-${id}.png`);
-            kokocityChannel.send(embed);
+            kokocityChannel.send({embed});
 
             canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400});
             image = await canvasRenderService.renderToBuffer({
@@ -468,7 +468,7 @@ cron.schedule("45 23 * * *", () => {
             id = `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
             file = new Discord.MessageAttachment(image, `volume-${id}.png`);
             embed = new Discord.MessageEmbed().setTitle("거래량 차트").attachFiles([file]).setImage(`attachment://volume-${id}.png`);
-            kokocityChannel.send(embed);
+            kokocityChannel.send({embed});
 
             kokocityChannel.send(
 `_증권 정보_
@@ -523,7 +523,7 @@ cron.schedule("45 23 * * *", () => {
             id = `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
             file = new Discord.MessageAttachment(image, `dom-${id}.png`);
             embed = new Discord.MessageEmbed().setTitle("호가창").attachFiles([file]).setImage(`attachment://dom-${id}.png`);
-            kokocityChannel.send(embed);
+            kokocityChannel.send({embed});
         })();
     }
     dvxChannel.send(notice);
