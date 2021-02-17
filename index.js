@@ -215,8 +215,10 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     var timeString = `${time.getHours().toString().padStart(2, "0")}${time.getMinutes().toString().padStart(2, "0")}${time.getSeconds().toString().padStart(2, "0")}`;
                     if ((time.getHours() == 23 && time.getMinutes() >= 55) || (time.getHours() == 0 && time.getMinutes() <= 5)) {
                         dvxChannel.send(`<@${message2.author.id}>, 주식 거래 불가능 시간대입니다.`);
+                        message2.delete();
                     } else if (Number(msg[2]) > data.stock.kokocity.stocks[message2.author.id]) {
                         dvxChannel.send(`<@${message2.author.id}>, 보유하고 있는 주식이 부족합니다.`);
+                        message2.delete();
                     } else {
                         dvxChannel.send(`<@${message2.author.id}>, 매도 주문이 접수되었습니다.`);
                         data.stock.kokocity.stocks[message2.author.id] -= Number(msg[2]);
@@ -235,8 +237,10 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     var timeString = `${time.getHours().toString().padStart(2, "0")}${time.getMinutes().toString().padStart(2, "0")}${time.getSeconds().toString().padStart(2, "0")}`;
                     if ((time.getHours() == 23 && time.getMinutes() >= 55) || (time.getHours() == 0 && time.getMinutes() <= 5)) {
                         dvxChannel.send(`<@${message2.author.id}>, 주식 거래 불가능 시간대입니다.`);
+                        message2.delete();
                     } else if (Number(msg[2]) * Number(msg[1]) > data.bank.account[message2.author.id]) {
                         dvxChannel.send(`<@${message2.author.id}>, 잔액이 부족합니다.`);
+                        message2.delete();
                     } else {
                         dvxChannel.send(`<@${message2.author.id}>, 매수 주문이 접수되었습니다.`);
                         data.bank.account[message2.author.id] -= Number(msg[2]) * Number(msg[1]);
@@ -309,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("0 0 * * *", () => {
+cron.schedule("3 11 * * *", () => {
     var open = 0;
     var high = 0;
     var low = Infinity;
