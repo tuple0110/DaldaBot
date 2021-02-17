@@ -313,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("50 23 * * *", () => {
+cron.schedule("0 0 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -448,7 +448,9 @@ cron.schedule("50 23 * * *", () => {
             var id = `${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
             var file = new Discord.MessageAttachment(image, `daily-${id}.png`);
             var embed = new Discord.MessageEmbed().setTitle("일봉 차트").attachFiles([file]).setImage(`attachment://daily-${id}.png`);
+            console.log("chart");
             kokocityChannel.send({embed});
+            console.log("chart");
 
             canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400});
             image = await canvasRenderService.renderToBuffer({
