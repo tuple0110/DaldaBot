@@ -313,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("35 23 * * *", () => {
+cron.schedule("45 23 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
