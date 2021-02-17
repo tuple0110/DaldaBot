@@ -145,9 +145,9 @@ client.on("message", (message2) => {
 정보 [유저 태그] : 타 유저 정보 조회
                     `);
                     break;
-                case /^정보 <@![0-9]{18}>$/.test(message):
+                case /^정보 (<@![0-9]{18}>|<@[0-9]{18}>)$/.test(message):
                     (async () => {
-                        var user = message2.guild.members.cache.find(user => user.id === msg[1].slice(3, 21));
+                        var user = message2.guild.members.cache.find(user => user.id === msg[1].replace(/(@|<|>|!)/, ""));
                         name = user.nickname ? user.nickname : user.user.username;
                         var userData;
                         try {
@@ -313,7 +313,8 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("3 11 * * *", () => {
+cron.schedule("11 11 * * *", () => {
+    console.log("daily");
     var open = 0;
     var high = 0;
     var low = Infinity;
