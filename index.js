@@ -203,6 +203,12 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     break;
             }
         } else if (message2.channel.id == "810173363485933568") {
+            if (!data.bank.account[message2.author.id]) {
+                data.bank.account[message2.author.id] = 0;
+            }
+            if (!data.stock.kokocity.stocks[message2.author.id]) {
+                data.stock.kokocity.stocks[message2.author.id] = 0;
+            }
             switch (true) {
                 case /^매도 [1-9][0-9]{3,} [1-9][0-9]*$/.test(message):
                     var time = new Date();
