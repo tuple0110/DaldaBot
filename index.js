@@ -313,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("13 0 * * *", () => {
+cron.schedule("40 10 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -330,6 +330,8 @@ cron.schedule("13 0 * * *", () => {
             buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer + [Number(price)]) + buyOffers;
         }
     });
+    console.log(sellOffers);
+    console.log(buyOffers);
     var notice = "";
     var volume = 0;
     for (var i in sellOffers) {
