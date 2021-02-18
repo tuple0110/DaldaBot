@@ -252,8 +252,8 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                         }
                         kokocityCharts();
                     }
-                    break;
                     saveData();
+                    break;
                 default:
                     message2.delete();
                     break;
@@ -332,6 +332,8 @@ cron.schedule("0 11 * * *", () => {
             buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer + [Number(price)]) + buyOffers;
         }
     });
+    console.log(sellOffers);
+    console.log(buyOffers);
     var notice = "";
     var volume = 0;
     for (var i in sellOffers) {
