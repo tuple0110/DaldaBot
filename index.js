@@ -236,7 +236,7 @@ function computeMinSampleSize(scale, pixels) {
 /**
  * This class is based off controller.bar.js from the upstream Chart.js library
  */
-class FinancialController extends Chart.BarController {
+class FinancialController extends Chart.controllers.bar {
 
 	getLabelAndValue(index) {
 		const me = this;
