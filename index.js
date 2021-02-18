@@ -345,7 +345,7 @@ class FinancialController extends Chart.controllers.bar {
 
 }
 
-const globalOpts = Chart.Chart.defaults;
+const globalOpts = Chart.Chart.defaults.global;
 
 globalOpts.elements.financial = {
 	color: {
