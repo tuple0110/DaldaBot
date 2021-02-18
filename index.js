@@ -438,7 +438,7 @@ cron.schedule("30 14 * * *", () => {
         (async () => {
             var fetched = await kokocityChannel.messages.fetch({limit: 4});
             kokocityChannel.bulkDelete(fetched);
-            var canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400, chartCallback: (ChartJS) => {
+            var canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400, chartCallback: (Chart) => {
 				/*!
 				 * @license
 				 * chartjs-chart-financial
@@ -1052,7 +1052,7 @@ cron.schedule("30 14 * * *", () => {
 					}
 				}, Chart.Chart.defaults.financial);
 
-				ChartJS.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
+				Chart.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
 
 				})));
             }});
