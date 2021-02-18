@@ -1,6 +1,5 @@
+const Chart = require("chart.js");
 
-
-//bwelkbwelk
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
@@ -439,7 +438,7 @@ cron.schedule("50 13 * * *", () => {
         (async () => {
             var fetched = await kokocityChannel.messages.fetch({limit: 4});
             kokocityChannel.bulkDelete(fetched);
-            var canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400, chartCallback: (Chart) => {
+            var canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400, chartCallback: (ChartJS) => {
 				/*!
 				 * @license
 				 * chartjs-chart-financial
@@ -1053,7 +1052,7 @@ cron.schedule("50 13 * * *", () => {
 					}
 				}, Chart.Chart.defaults.financial);
 
-				Chart.Chart.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
+				ChartJS.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
 
 				})));
             }});
