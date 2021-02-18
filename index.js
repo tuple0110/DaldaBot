@@ -44,17 +44,21 @@ client.on("message", (message2) => {
             if (!data.bank.account[message2.author.id]) {
                 data.bank.account[message2.author.id] = 0;
             }
+            if (!data.stock.kokocity.stocks[message2.author.id]) {
+                data.stock.kokocity.stocks[message2.author.id] = 0;
+            }
             switch (true) {
                 case /^도움말$/.test(message):
                     message2.reply(`
-잔액 : 계좌에 있는 잔액을 조회합니다.
+잔액 : 계좌에 있는 잔액과 소유하고 있는 주식의 수량을 조회합니다.
 입금 [입금 코드] : 전자 계좌에 입금 코드의 가치에 맞는 돈을 입금합니다.
 출금 [100/900/6400/57600] : 출금할 액수에 맞는 출금 아이디와 출금 코드를 발송합니다.
 송금 [보낼 유저 태그 (예: <@386031770216300555>)] [송금 액수] : 타 유저에게 돈을 전송합니다.
                     `);
                     break;
                 case /^잔액$/.test(message):
-                    message2.reply(`현재 고객님의 계좌에는 ${data.bank.account[message2.author.id].toLocaleString()}Đ이 있습니다.`);
+                    message2.reply(`현재 고객님의 계좌에는 ${data.bank.account[message2.author.id].toLocaleString()}Đ이 있습니다.
+현재 고객님은 코코시티 주식 ${data.stock.kokocity.stocks[message2.author.id]}주를 소유하고 계십니다.`);
                     break;
                 case /^입금 [0-9]{5}$/.test(message):
                     if (data.bank.code.in100.includes(msg[1])) {
@@ -538,7 +542,7 @@ cron.schedule("0 0 * * *", () => {
 `_증권 정보_
 **코코시티** ${close.toLocaleString()} _${data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c <= close ? "▲" : "▼"} ${Math.abs(close - data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c).toLocaleString()}_
 전일종가 : ${data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c} 고가 : ${high.toLocaleString()} 저가 : ${low.toLocaleString()}
-거래량 : ${volume} 시가 총액 : ${(close * 41).toLocaleString()} DESPI : ${(close / 10).toLocaleString()}
+거래량 : ${volume} 시가 총액 : ${(close * 51).toLocaleString()} DESPI : ${(close / 10).toLocaleString()}
 `
             );
 
