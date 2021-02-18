@@ -442,7 +442,7 @@ cron.schedule("50 16 * * *", () => {
             var image = await canvasRenderService.renderToBuffer({
                 type: 'bar',
                 data: {
-                    labels: data.stock.kokocity.info.date
+                    labels: data.stock.kokocity.info.date,
                     datasets: [
                         {
                             label: "open-close",
