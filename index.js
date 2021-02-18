@@ -433,7 +433,7 @@ class FinancialElement extends Chart.Element {
 	}
 }
 
-const globalOpts$1 = Chart.Chart.defaults;
+const globalOpts$1 = Chart.Chart.defaults.global;
 
 class CandlestickElement extends FinancialElement {
 	draw(ctx) {
@@ -524,7 +524,7 @@ CandlestickController.defaults = merge({
 	dataElementType: CandlestickElement.id
 }, Chart__default['default'].defaults.financial);
 
-const globalOpts$2 = Chart.Chart.defaults;
+const globalOpts$2 = Chart.Chart.defaults.global;
 
 class OhlcElement extends FinancialElement {
 	draw(ctx) {
