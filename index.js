@@ -8,6 +8,7 @@
  * Released under the MIT license
  * https://github.com/chartjs/chartjs-chart-financial/blob/master/LICENSE.md
  */
+const Chart = require("chart.js");
 (function (global, factory) {
 typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('chart.js')) :
 typeof define === 'function' && define.amd ? define(['chart.js'], factory) :
