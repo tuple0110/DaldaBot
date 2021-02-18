@@ -315,7 +315,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("59 22 * * *", () => {
+cron.schedule("10 23 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -427,7 +427,7 @@ cron.schedule("59 22 * * *", () => {
             h: high + 5,
             l: low,
             c: close + 5,
-            color: (close < open ? "#0000FF" : "#FF0000")
+            color: (close + 5 == open ? "#000000" : (close < open ? "#0000FF" : "#FF0000"))
         });
         data.stock.kokocity.info.date.push(`${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`);
         data.stock.kokocity.info.volume.push(volume);
