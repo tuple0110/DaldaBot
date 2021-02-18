@@ -315,7 +315,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("53 16 * * *", () => {
+cron.schedule("3 17 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -479,7 +479,7 @@ cron.schedule("53 16 * * *", () => {
                         {
                             label: "VOLUME",
                             backgroundColor: "#00FF00",
-                            data: sell
+                            data: data.stock.kokocity.info.volume
                         }
                     ]
                 }
