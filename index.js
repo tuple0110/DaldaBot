@@ -325,7 +325,7 @@ cron.schedule("55 11 * * *", () => {
     var sellOffers = [];
     var buyOffers = [];
     console.log(prices);
-    console.log(data.kokocity.deal);
+    console.log(data.stock.kokocity.deal);
     prices.map((price) => {
         if (price != "a") {
             sellOffers += data.stock.kokocity.deal[price].sell.map((offer) => offer + [Number(price)]);
