@@ -315,7 +315,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("50 13 * * *", () => {
+cron.schedule("30 14 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
