@@ -315,7 +315,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("15 17 * * *", () => {
+cron.schedule("59 22 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -326,21 +326,17 @@ cron.schedule("15 17 * * *", () => {
     var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     var sellOffers = [];
     var buyOffers = [];
-    console.log(prices);
-    console.log(data.stock.kokocity.deal);
     prices.map((price) => {
         if (price != "a") {
             sellOffers = sellOffers.concat(data.stock.kokocity.deal[price].sell.map((offer) => offer.concat([Number(price)])));
             buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer.concat([Number(price)])).concat(buyOffers);
         }
     });
-    console.log(sellOffers);
-    console.log(buyOffers);
     var notice = "";
     var volume = 0;
     for (var i in sellOffers) {
         for (var j in buyOffers) {
-            if (buyOffers[j][1] != 0 && buyOffers[j][3] >= sellOffers[i][3]) {
+            if (sellOffers[i][0] != buyOffers[j][0] && buyOffers[j][1] != 0 && buyOffers[j][3] >= sellOffers[i][3]) {
                 if (buyOffers[j][1] <= sellOffers[i][1]) {
                     sellOffers[i][1] -= buyOffers[j][1];
                     volume += buyOffers[j][1];
@@ -428,9 +424,9 @@ cron.schedule("15 17 * * *", () => {
         var time = new Date();
         data.stock.kokocity.info.tohlc.push({
             o: open,
-            h: high,
+            h: high + 5,
             l: low,
-            c: close,
+            c: close + 5,
             color: (close < open ? "#0000FF" : "#FF0000")
         });
         data.stock.kokocity.info.date.push(`${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`);
@@ -445,9 +441,15 @@ cron.schedule("15 17 * * *", () => {
                     labels: data.stock.kokocity.info.date,
                     datasets: [
                         {
-                            label: "open-close",
+                            label: "OPEN-CLOSE",
                             data: data.stock.kokocity.info.tohlc.map(value => [value.o, value.c].sort()),
                             backgroundColor: data.stock.kokocity.info.tohlc.map(value => value.color)
+                        },
+                        {
+                            label: "LOW-HIGH",
+                            backgroundColor: "#000000",
+                            data: data.stock.kokocity.info.tohlc.map(value => [value.l, value.h]),
+                            xAxisID: 'x-axis-2'
                         }
                     ]
                 },
@@ -458,7 +460,30 @@ cron.schedule("15 17 * * *", () => {
                     },
                     title: {
                         display: true,
-                        text: "Daily Chart"
+                        text: "DAILY CHART"
+                    },
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 0.6,
+                            barPercentage: 1
+                        }, {
+                            id: "x-axis-2",
+                            type: "category",
+                            display: false,
+                            categoryPercentage: 0.6,
+                            barPercentage: 1,
+                            barThickness: 10,
+                            gridLines: {
+                                offsetGridLines: true
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            stacked: true
+                        }]
                     }
                 }
             });
@@ -470,6 +495,16 @@ cron.schedule("15 17 * * *", () => {
             kokocityChannel.send({embed});
             console.log("chart");
 
+            let volumeColor;
+
+            for (var i in data.stock.kokocity.info.volume) {
+                if (i == 0) {
+                    volumeColor.push("#FF0000");
+                } else {
+                    volumeColor.push(data.stock.kokocity.info.volume[i - 1] <= data.stock.kokocity.info.volume[i] ? "#FF0000" : "#0000FF");
+                }
+            }
+
             canvasRenderService = new ChartJSNodeCanvas({width: 850, height: 400});
             image = await canvasRenderService.renderToBuffer({
                 type: 'bar',
@@ -478,10 +513,19 @@ cron.schedule("15 17 * * *", () => {
                     datasets: [
                         {
                             label: "VOLUME",
-                            backgroundColor: "#00FF00",
+                            backgroundColor: volumeColor,
                             data: data.stock.kokocity.info.volume
                         }
                     ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
             });
             date = new Date();
@@ -494,7 +538,7 @@ cron.schedule("15 17 * * *", () => {
 `_증권 정보_
 **코코시티** ${close.toLocaleString()} _${data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c <= close ? "▲" : "▼"} ${Math.abs(close - data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c).toLocaleString()}_
 전일종가 : ${data.stock.kokocity.info.tohlc[data.stock.kokocity.info.tohlc.length - 2].c} 고가 : ${high.toLocaleString()} 저가 : ${low.toLocaleString()}
-거래량 : ${volume} 시가 총액 : ${(close * 41).toLocaleString()} DESPI : ${(close * 41 / 410 * 100).toLocaleString()}
+거래량 : ${volume} 시가 총액 : ${(close * 41).toLocaleString()} DESPI : ${(close / 10).toLocaleString()}
 `
             );
 
