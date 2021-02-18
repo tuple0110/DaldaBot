@@ -612,7 +612,7 @@ OhlcController.defaults = merge({
 	}
 }, Chart.Chart.defaults.financial);
 
-Chart.Chart.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
+Chart.Chart.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
 
 })));
 
