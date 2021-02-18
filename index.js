@@ -315,7 +315,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("47 14 * * *", () => {
+cron.schedule("55 14 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -640,7 +640,7 @@ cron.schedule("47 14 * * *", () => {
 									const point = ctx.dataPoint;
 
 									if (!isNullOrUndef(point.y)) {
-										return Chart.Chart.defaults.interaction.callbacks.label(ctx);
+										return Chart.defaults.interaction.callbacks.label(ctx);
 									}
 
 									const {o, h, l, c} = point;
@@ -785,7 +785,7 @@ cron.schedule("47 14 * * *", () => {
 
 				}
 
-				const globalOpts = Chart.Chart.defaults.global;
+				const globalOpts = Chart.defaults.global;
 
 				globalOpts.elements.financial = {
 					color: {
@@ -873,7 +873,7 @@ cron.schedule("47 14 * * *", () => {
 					}
 				}
 
-				const globalOpts$1 = Chart.Chart.defaults.global;
+				const globalOpts$1 = Chart.defaults.global;
 
 				class CandlestickElement extends FinancialElement {
 					draw(ctx) {
@@ -964,7 +964,7 @@ cron.schedule("47 14 * * *", () => {
 					dataElementType: CandlestickElement.id
 				}, Chart__default['default'].defaults.financial);
 
-				const globalOpts$2 = Chart.Chart.defaults.global;
+				const globalOpts$2 = Chart.defaults.global;
 
 				class OhlcElement extends FinancialElement {
 					draw(ctx) {
@@ -1050,9 +1050,10 @@ cron.schedule("47 14 * * *", () => {
 						barPercentage: 1.0,
 						categoryPercentage: 1.0
 					}
-				}, Chart.Chart.defaults.financial);
+				}, Chart.defaults.financial);
 
 				Chart.plugins.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
+				Chart.controllers.candlestick = CandlestickController;
 
 				})));
             }});
