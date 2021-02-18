@@ -313,7 +313,7 @@ async function kokocityCharts() {
     kokocityChannel.send({embed});
 }
 
-cron.schedule("8 12 * * *", () => {
+cron.schedule("13 12 * * *", () => {
     console.log("daily");
     var open = 0;
     var high = 0;
@@ -324,10 +324,12 @@ cron.schedule("8 12 * * *", () => {
     var prices = Object.keys(data.stock.kokocity.deal).sort((a, b) => Number(a) > Number(b) ? 1 : -1);
     var sellOffers = [];
     var buyOffers = [];
+    console.log(prices);
+    console.log(data.stock.kokocity.deal);
     prices.map((price) => {
         if (price != "a") {
-            sellOffers = sellOffers.concat(data.stock.kokocity.deal[price].sell.map((offer) => offer + [Number(price)]));
-            buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer + [Number(price)]).concat(buyOffers);
+            sellOffers = sellOffers.concat(data.stock.kokocity.deal[price].sell.map((offer) => offer.concat([Number(price)])));
+            buyOffers = data.stock.kokocity.deal[price].buy.map((offer) => offer.concat([Number(price)])).concat(buyOffers);
         }
     });
     console.log(sellOffers);
