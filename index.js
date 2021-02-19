@@ -96,16 +96,16 @@ client.on("message", (message2) => {
                         message2.reply(`고객님의 출금 아이디와 출금 코드가 DM으로 발송되었습니다. 잔액 : ${data.bank.account[message2.author.id]}Đ`);
                     }
                     break;
-                case /^송금 <@![0-9]{18}> [1-9][0-9]*$/.test(message):
+                case /^송금 (<@|<@!)[0-9]{18}> [1-9][0-9]*$/.test(message):
                     if (data.bank.account[message2.author.id] < Number(msg[2])) {
                         message2.reply("잔액이 부족합니다.");
                     } else {
                         message2.reply(`${msg[1]}님에게 ${msg[2]}Đ을 전송하였습니다. 잔액 : ${data.bank.account[message2.author.id]}Đ`);
                         data.bank.account[message2.author.id] -= Number(msg[2]);
-                        if (!data.bank.account[msg[1].slice(3, 21)]) {
-                            data.bank.account[msg[1].slice(3, 21)] = 0;
+                        if (!data.bank.account[msg[1].replace(/@|!|>|</g, "")]) {
+                            data.bank.account[msg[1].replace(/@|!|>|</g, "")] = 0;
                         }
-                        data.bank.account[msg[1].slice(3, 21)] += Number(msg[2]);
+                        data.bank.account[msg[1].replace(/@|!|>|</g, "")] += Number(msg[2]);
                     }
                     break;
             }
@@ -136,8 +136,8 @@ client.on("message", (message2) => {
                     }
                     message2.reply(codeResult);
                     break;
-                case /^코코주식 <@![0-9]{18}> [0-9]+$/.test(message):
-                    data.stock.kokocity.stocks[msg[1].slice(3, 21)] = Number(msg[2]);
+                case /^코코주식 <(@!|@)[0-9]{18}> [0-9]+$/.test(message):
+                    data.stock.kokocity.stocks[msg[1].replace(/@|!|>|</g, "")] = Number(msg[2]);
                     break;
             }
             saveData();
@@ -153,7 +153,7 @@ client.on("message", (message2) => {
                     break;
                 case /^정보 (<@![0-9]{18}>|<@[0-9]{18}>)$/.test(message):
                     (async () => {
-                        var user = message2.guild.members.cache.find(user => user.id === msg[1].replace(/(@|<|>|!)/, ""));
+                        var user = message2.guild.members.cache.find(user => user.id === msg[1].replace(/(@|<|>|!)/g, ""));
                         name = user.nickname ? user.nickname : user.user.username;
                         var userData;
                         try {
