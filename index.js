@@ -161,6 +161,9 @@ client.on("message", (message2) => {
                         } finally {
 
                         }
+                        if (!data.bank.account[msg[1].slice(3, 21)]) {
+                            data.bank.account[msg[1].slice(3, 21)] = 0;
+                        }
                         message2.reply(`
 닉네임 : ${user.nickname ? user.nickname : user.user.username}
 DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
