@@ -269,6 +269,8 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                             for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
                                 if (data.stock.kokocity.deal[i].sell[j][0] == message2.author.id) {
                                     data.stock.kokocity.deal[i].sellTotal -= data.stock.kokocity.deal[i].sell[j][1];
+                                    data.stock.kokocity.stocks[message2.author.id] += data.stock.kokocity.deal[i].sell[j][1];
+                                    dvxChannel.send(`매도 취소. 코코시티 ${data.stock.kokocity.deal[i].sell[j][1]}주 반환됨.`);
                                     data.stock.kokocity.deal[i].sell.splice(j, 1);
                                 }
                             }
@@ -286,6 +288,8 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                             for (var j = data.stock.kokocity.deal[i].buy.length - 1; j >= 0; j--) {
                                 if (data.stock.kokocity.deal[i].buy[j][0] == message2.author.id) {
                                     data.stock.kokocity.deal[i].buyTotal -= data.stock.kokocity.deal[i].buy[j][1];
+                                    data.bank.account[message2.author.id] += data.stock.kokocity.deal[i].buy[j][1] * Number(i);
+                                    dvxChannel.send(`매수 취소. ${data.stock.kokocity.deal[i].buy[j][1] * Number(i)}Đ 반환됨.`);
                                     data.stock.kokocity.deal[i].buy.splice(j, 1);
                                 }
                             }
