@@ -265,14 +265,16 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     break;
                 case /^매도 취소$/.test(message):
                     for (var i in data.stock.kokocity.deal) {
-                        for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
-                            if (data.stock.kokocity.deal[i].sell[j][0] == message2.author.id) {
-                                data.stock.kokocity.deal[i].sellTotal -= data.stock.kokocity.deal[i].sell[j][1];
-                                data.stock.kokocity.deal[i].sell.splice(j, 1);
+                        if (i != "a") {
+                            for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
+                                if (data.stock.kokocity.deal[i].sell[j][0] == message2.author.id) {
+                                    data.stock.kokocity.deal[i].sellTotal -= data.stock.kokocity.deal[i].sell[j][1];
+                                    data.stock.kokocity.deal[i].sell.splice(j, 1);
+                                }
                             }
-                        }
-                        if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
-                            delete data.stock.kokocity.deal[i];
+                            if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
+                                delete data.stock.kokocity.deal[i];
+                            }
                         }
                     }
                     kokocityCharts();
@@ -280,14 +282,16 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     break;
                 case /^매수 취소$/.test(message):
                     for (var i in data.stock.kokocity.deal) {
-                        for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
-                            if (data.stock.kokocity.deal[i].buy[j][0] == message2.author.id) {
-                                data.stock.kokocity.deal[i].buyTotal -= data.stock.kokocity.deal[i].buy[j][1];
-                                data.stock.kokocity.deal[i].buy.splice(j, 1);
+                        if (i != "a") {
+                            for (var j = data.stock.kokocity.deal[i].buy.length - 1; j >= 0; j--) {
+                                if (data.stock.kokocity.deal[i].buy[j][0] == message2.author.id) {
+                                    data.stock.kokocity.deal[i].buyTotal -= data.stock.kokocity.deal[i].buy[j][1];
+                                    data.stock.kokocity.deal[i].buy.splice(j, 1);
+                                }
                             }
-                        }
-                        if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
-                            delete data.stock.kokocity.deal[i];
+                            if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
+                                delete data.stock.kokocity.deal[i];
+                            }
                         }
                     }
                     kokocityCharts();
