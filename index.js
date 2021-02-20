@@ -502,7 +502,7 @@ cron.schedule("0 0 * * *", () => {
             kokocityChannel.send({embed});
             console.log("chart");
 
-            let volumeColor;
+            let volumeColor = [];
 
             for (var i in data.stock.kokocity.info.volume) {
                 if (i == 0) {
