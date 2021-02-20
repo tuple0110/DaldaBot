@@ -263,6 +263,36 @@ DCB 잔액 : ${data.bank.account[msg[1].slice(3, 21)]}Đ
                     }
                     saveData();
                     break;
+                case /^매도 취소$/.test(message):
+                    for (var i in data.stock.kokocity.deal) {
+                        for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
+                            if (data.stock.kokocity.deal[i].sell[j][0] == message2.author.id) {
+                                data.stock.kokocity.deal[i].sellTotal -= data.stock.kokocity.deal[i].sell[j][1];
+                                data.stock.kokocity.deal[i].sell.splice(j, 1);
+                            }
+                        }
+                        if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
+                            delete data.stock.kokocity.deal[i];
+                        }
+                    }
+                    kokocityCharts();
+                    saveData();
+                    break;
+                case /^매수 취소$/.test(message):
+                    for (var i in data.stock.kokocity.deal) {
+                        for (var j = data.stock.kokocity.deal[i].sell.length - 1; j >= 0; j--) {
+                            if (data.stock.kokocity.deal[i].buy[j][0] == message2.author.id) {
+                                data.stock.kokocity.deal[i].buyTotal -= data.stock.kokocity.deal[i].buy[j][1];
+                                data.stock.kokocity.deal[i].buy.splice(j, 1);
+                            }
+                        }
+                        if (data.stock.kokocity.deal[i].sellTotal == 0 && data.stock.kokocity.deal[i].buyTotal == 0) {
+                            delete data.stock.kokocity.deal[i];
+                        }
+                    }
+                    kokocityCharts();
+                    saveData();
+                    break;
                 default:
                     message2.delete();
                     break;
@@ -450,13 +480,17 @@ cron.schedule("0 0 * * *", () => {
                         {
                             label: "OPEN-CLOSE",
                             data: data.stock.kokocity.info.tohlc.map(value => [value.o, value.c].sort()),
-                            backgroundColor: data.stock.kokocity.info.tohlc.map(value => value.color)
+                            backgroundColor: data.stock.kokocity.info.tohlc.map(value => value.color),
+                            borderWidth: 7,
+                            borderColor: "#000000"
                         },
                         {
                             label: "LOW-HIGH",
                             backgroundColor: "#000000",
                             data: data.stock.kokocity.info.tohlc.map(value => [value.l, value.h]),
-                            xAxisID: 'x-axis-2'
+                            xAxisID: 'x-axis-2',
+                            borderWidth: 7,
+                            borderColor: "#000000"
                         }
                     ]
                 },
