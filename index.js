@@ -154,7 +154,7 @@ client.on("message", (message2) => {
                 case /^코드 out(100|900|6400|57600)$/.test(message):
                     var codeResult = "";
                     for (var i of ["A", "B", "C", "D", "E"]) {
-                        for (var j = 1; j <= 10; i++) {
+                        for (var j = 1; j <= 10; j++) {
                             if (!data.bank.code[msg[1]][i + j]) {
                                 var random = Math.floor(Math.random() * 100000).toString().padStart(5, "0");
                                 data.bank.code[msg[1]][i + j] = random;
