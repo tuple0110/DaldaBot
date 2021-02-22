@@ -60,6 +60,9 @@ client.on("message", (message2) => {
                     message2.reply(`현재 고객님의 계좌에는 ${data.bank.account[message2.author.id].toLocaleString()}Đ이 있습니다.
 현재 고객님은 코코시티 주식 ${data.stock.kokocity.stocks[message2.author.id]}주를 소유하고 계십니다.`);
                     break;
+                case /^코코 잔액$/.test(message):
+                    message2.reply(`현재 코코시티 계좌에는 ${data.bank.account.kokocity}Đ이 있습니다.`);
+                    break;
                 case /^입금 [0-9]{5}$/.test(message):
                     if (data.bank.code.in100.includes(msg[1])) {
                         data.bank.account[message2.author.id] += 100;
@@ -81,6 +84,31 @@ client.on("message", (message2) => {
                         message2.reply("사용 불가능한 입금 코드입니다.")
                     }
                     break;
+                case /^코코 입금 [0-9]{5}$/.test(message):
+                    if (message2.member.roles.find(r => r.name === "코코 법인 카드")) {
+                        if (data.bank.code.in100.includes(msg[1])) {
+                            data.bank.account.kokocity += 100;
+                            data.bank.code.in100.splice(data.bank.code.in100.indexOf(msg[1]), 1)
+                            message2.reply("회사 계좌에 100Đ이 입금되었습니다.")
+                        } else if (data.bank.code.in900.includes(msg[1])) {
+                            data.bank.account.kokocity += 900;
+                            data.bank.code.in900.splice(data.bank.code.in900.indexOf(msg[1]), 1)
+                            message2.reply("회사 계좌에 900Đ이 입금되었습니다.")
+                        } else if (data.bank.code.in6400.includes(msg[1])) {
+                            data.bank.account.kokocity += 6400;
+                            data.bank.code.in6400.splice(data.bank.code.in6400.indexOf(msg[1]), 1)
+                            message2.reply("회사 계좌에 6,400Đ이 입금되었습니다.")
+                        } else if (data.bank.code.in57600.includes(msg[1])) {
+                            data.bank.account.kokocity += 57600;
+                            data.bank.code.in57600.splice(data.bank.code.in57600.indexOf(msg[1]), 1)
+                            message2.reply("회사 계좌에 57,600Đ이 입금되었습니다.")
+                        } else {
+                            message2.reply("사용 불가능한 입금 코드입니다.")
+                        }
+                        break;
+                    } else {
+                        message2.reply("계좌 접근 권한이 없습니다.");
+                    }
                 case /^출금 (100|900|6400|57600)$/.test(message):
                     if (Object.keys(data.bank.code["out" + msg[1]]).length == 1) {
                         message2.reply("전산 상의 출금 코드가 모두 소진되었습니다.");
