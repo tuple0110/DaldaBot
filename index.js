@@ -518,15 +518,15 @@ cron.schedule("0 0 * * *", () => {
                             data: data.stock.kokocity.info.tohlc.map(value => [value.o, value.c].sort()),
                             backgroundColor: data.stock.kokocity.info.tohlc.map(value => value.color),
                             borderWidth: 7,
-                            borderColor: "#000000"
+                            borderColor: "#00FF00"
                         },
                         {
                             label: "LOW-HIGH",
-                            backgroundColor: "#000000",
+                            backgroundColor: "#00FF00",
                             data: data.stock.kokocity.info.tohlc.map(value => [value.l, value.h]),
                             xAxisID: 'x-axis-2',
                             borderWidth: 7,
-                            borderColor: "#000000"
+                            borderColor: "#00FF00"
                         }
                     ]
                 },
